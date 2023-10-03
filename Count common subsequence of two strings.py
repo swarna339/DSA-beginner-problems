@@ -1,23 +1,29 @@
-def count_common_subsequences(S, T):
-    m, n = len(S), len(T)
-    dp = [[0] * (n + 1) for _ in range(m + 1)]
-
-    for i in range(m + 1):
-        dp[i][0] = 1
-
-    for i in range(1, m + 1):
-        for j in range(1, n + 1):
-            dp[i][j] = dp[i - 1][j]
-            if S[i - 1] == T[j - 1]:
-                dp[i][j] += dp[i - 1][j - 1]
-
-    return dp[m][n]
-
-# Example usage
-S1 = "ajblqcpdz"
-T1 = "aefcnbtdi"
-print(count_common_subsequences(S1, T1))  # Output: 11
-
-S2 = "a"
-T2 = "ab"
-print(count_common_subsequences(S2, T2))  # Output: 1
+def CommonSubsequencesCount(s, t):
+ 
+    n1 = len(s)
+    n2 = len(t)
+    dp = [[0 for i in range(n2 + 1)]
+             for i in range(n1 + 1)]
+ 
+    # for each character of S
+    for i in range(1, n1 + 1):
+ 
+        # for each character in T
+        for j in range(1, n2 + 1):
+ 
+            # if character are same in both
+            # the string
+            if (s[i - 1] == t[j - 1]):
+                dp[i][j] = (1 + dp[i][j - 1] +
+                                dp[i - 1][j])        
+            else:
+                dp[i][j] = (dp[i][j - 1] + dp[i - 1][j] -
+                            dp[i - 1][j - 1])        
+         
+    return dp[n1][n2]
+ 
+# Driver Code
+s = "ajblqcpdz"
+t = "aefcnbtdi"
+ 
+print(CommonSubsequencesCount(s, t))
